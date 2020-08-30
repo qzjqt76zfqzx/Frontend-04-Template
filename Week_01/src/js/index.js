@@ -25,7 +25,7 @@ function show() {
 }
 
 function move(x, y) {
-  if (pattern[x][y] == 0) {
+  if (pattern[x][y] !== 1 && pattern[x][y] !== 2) {
     pattern[x][y] = color;
     show();
     if (check(pattern, color)) {
