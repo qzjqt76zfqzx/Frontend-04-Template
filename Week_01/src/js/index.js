@@ -33,6 +33,7 @@ function move(x, y) {
         ? (document.getElementById("result").innerHTML = "O win")
         : (document.getElementById("result").innerHTML = "X win");
     }
+    willWin(pattern, color);
     color = LOGIC_NUMBER - color;
   }
 }
@@ -90,5 +91,27 @@ function check(pattern, color) {
     }
   }
 
+  return false;
+}
+
+function clone(pattern) {
+  return JSON.parse(JSON.stringify(pattern));
+}
+
+function willWin(pattern, color) {
+  for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
+      if (pattern[i][j] !== 1 && pattern[i][j] !== 2) {
+        let tmp = clone(pattern);
+        tmp[i][j] = color;
+        if (check(tmp, color)) {
+          color == 1
+            ? (document.getElementById("hint").innerHTML = "O will win")
+            : (document.getElementById("hint").innerHTML = "X will win");
+          return true;
+        }
+      }
+    }
+  }
   return false;
 }
