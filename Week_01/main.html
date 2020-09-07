@@ -7,11 +7,14 @@
     <title>TicTacToe</title>
   </head>
   <body>
-    <div>
-      <button id="showBoard" onclick="show()">Show board</button>
+    <p id="errorMessage">Error Message will show here</p>
+    <div id="buttons">
+      <button id="showBoard" onclick="start()">Show board</button>
+      <button onclick="setPVP()">PVP Model</button>
+      <button onclick="setPVE()">PVE Model</button>
+      <button onclick="setHumanFirst()">Human First</button>
+      <button onclick="setAIFirst()">AI First</button>
     </div>
     <div id="board"></div>
-    <div id="result"></div>
-    <div id="hint"></div>
   </body>
 </html>
