@@ -2,22 +2,11 @@
 
 const ONE_SECOND = 1000;
 
-green();
-
 function green() {
-  let lights = document.getElementsByTagName("div");
-  console.log(lights);
-  for (let i = 0; i < lights.length; i++) {
-    lights[i].classList.remove("light");
+  let light = document.getElementsByTagName("div");
+  for (let i = 0; i < light.length; i++) {
+    light[i].classList.remove("light");
   }
-  let green = document.getElementsByClassName("green");
-  console.log(green);
-  console.log(green.length);
-  for (let i = 0; i < green.length; i++) {
-    console.log(i);
-    green[i].classList.add("light");
-  }
-  console.log(green);
   document.getElementsByClassName("green")[0].classList.add("light");
 }
 
