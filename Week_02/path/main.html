@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="src/css/style.css" />
+    <script src="src/js/index.js" defer></script>
+    <title>path</title>
+  </head>
+  <body>
+    <div id="board"></div>
+    <div>
+      <button onclick="localStorage.setItem('map',JSON.stringify(map))">
+        save
+      </button>
+      <button onclick="clearMap()">clear map</button>
+    </div>
+  </body>
+</html>
