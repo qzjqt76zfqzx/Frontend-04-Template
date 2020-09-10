@@ -1,12 +1,13 @@
 .cell {
-  display: inline-block;
+  /* display: inline-block; */
   line-height: 7px;
   width: 6px;
   height: 6px;
   background-color: gray;
   border-bottom: solid 1px white;
   border-right: solid 1px white;
-  vertical-align: top;
+  /* vertical-align: top; */
+  float: left;
 }
 
 #board {
