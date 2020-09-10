@@ -16,7 +16,9 @@ let board = document.getElementById("board");
 for (let i = 0; i < 100; i++) {
   for (let j = 0; j < 100; j++) {
     let cell = document.createElement("div");
-
+    if (j === 99) {
+      cell.style.backgroundColor = "pink";
+    }
     cell.classList.add("cell");
 
     if (map[100 * i + j] === 1) {
@@ -37,7 +39,6 @@ for (let i = 0; i < 100; i++) {
 
     board.appendChild(cell);
   }
-  board.appendChild(document.createElement("br"));
 }
 
 document.addEventListener("mousedown", function (event) {
@@ -63,4 +64,58 @@ document.addEventListener("contextmenu", function (event) {
 function clearMap() {
   map = Array(100 * 100).fill(0);
   localStorage.setItem("map", JSON.stringify(map));
+}
+
+function sleep(t) {
+  return new Promise(function (resolve, reject) {
+    setTimeout(resolve, t);
+  });
+}
+
+async function findPath(map, startPoint, endPoint) {
+  let queue = [startPoint];
+  let mapCopy = Object.create(map);
+
+  async function insert(x, y, preX, preY) {
+    if (x < 0 || x >= 100 || y < 0 || y >= 100) {
+      return;
+    }
+
+    if (map[x * 100 + y]) {
+      return;
+    }
+    //await sleep(1);
+    board.children[x * 100 + y].style.backgroundColor = "green";
+    map[x * 100 + y] = 2;
+    mapCopy[x * 100 + y] = [preX, preY];
+    queue.push([x, y]);
+  }
+
+  while (queue.length) {
+    let [x, y] = queue.shift();
+
+    if (x === endPoint[0] && y === endPoint[1]) {
+      board.children[x * 100 + y].style.backgroundColor = "red";
+      let path = [];
+      while (x !== startPoint[0] && y !== startPoint[1]) {
+        path.push([x, y]);
+        [x, y] = mapCopy[x * 100 + y];
+        board.children[x * 100 + y].style.backgroundColor = "blue";
+      }
+      console.log("find the path");
+      return path;
+    }
+
+    await insert(x - 1, y, x, y);
+    await insert(x - 1, y - 1, x, y);
+    await insert(x, y - 1, x, y);
+    await insert(x + 1, y - 1, x, y);
+    await insert(x + 1, y, x, y);
+    await insert(x + 1, y + 1, x, y);
+    await insert(x, y + 1, x, y);
+    await insert(x - 1, y + 1, x, y);
+  }
+
+  console.log("fail find path");
+  return null;
 }
